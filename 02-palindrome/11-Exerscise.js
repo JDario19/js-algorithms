@@ -17,7 +17,7 @@
  *
  * ============================================================
  */
-function countPalindromes(text){
+function isPalindromeIgnoringSpaces(text){
   let noSpacesString = "";
   let reversednoSpacesString = "";
   
@@ -35,4 +35,4 @@ function countPalindromes(text){
   return reversednoSpacesString=== noSpacesString;
 
 }
-console.log(countPalindromes("anita lava la tina"))
+console.log(isPalindromeIgnoringSpaces("anita lava la tina"))
