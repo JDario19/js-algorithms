@@ -193,29 +193,10 @@ function reverseWordIgnorenNoCharacters(text5){
 }
 console.log(reverseWordIgnorenNoCharacters("b.ana,na"));
 /*
-========================================================
+--------------------------------------------------------
 EXERCISE 6
-========================================================
-Reverse a string using TWO POINTER technique.
-
-Rules:
-- Use left and right indexes
-- No extra arrays
-
-Focus:
-- Pointer movement
-- While loop control
-
---- CODE BELOW ---
-*/
-
-
-
-/*
-========================================================
-EXERCISE 7
-========================================================
-Reverse only letters, ignore numbers.
+--------------------------------------------------------
+Reverse ONLY letters, IGNORE numbers.
 
 Input:
 "a1b2c3"
@@ -224,19 +205,48 @@ Output:
 "c1b2a3"
 
 Focus:
-- Validation conditions
-- Selective reversal
+- Numbers stay in original positions
+- Letters are reversed
+- SAME pattern as Exercises 4 and 5
+- No new concepts
 
 --- CODE BELOW ---
 */
-
-
+function reverseOnlyLettersIgnoreNumbers(text6){
+  let result = "";
+  let letters = "";
+  for(let i = 0; i<text6.length; i++){
+    let ch = text6[i];
+    let isLetter =
+    (ch >= "a" && ch<="z")||
+    (ch >="A" && ch <="Z")
+    if(isLetter){
+      letters+=ch
+    }
+  }
+  
+  let index = letters.length -1;
+  for(let i = 0; i<text6.length; i++){
+    let ch = text6[i];
+    let isLetter =
+    (ch >= "a" && ch<="z")||
+    (ch >="A" && ch <="Z")
+    if(!isLetter){
+      result+=ch;
+    }else{
+      result+=letters[index];
+      index--;
+    }
+  }
+  return result
+}
+console.log(reverseOnlyLettersIgnoreNumbers("a1b2c3"));
 
 /*
-========================================================
-EXERCISE 8
-========================================================
-Reverse the ORDER of words, not characters.
+--------------------------------------------------------
+EXERCISE 7
+--------------------------------------------------------
+Reverse the ORDER of words (not characters).
 
 Input:
 "hello world today"
@@ -245,19 +255,45 @@ Output:
 "today world hello"
 
 Focus:
-- Word detection
-- Rebuilding strings
+- Word boundaries
+- Space detection
+- Building words manually
 
 --- CODE BELOW ---
 */
-
-
+function reverseWordsOrder(text7){
+  let currentWord = "";
+  let words = [];
+  for(let i = 0; i<text7.length; i++){
+    let ch = text7[i];
+    
+    if(ch === " "){
+      words.push(currentWord);
+      currentWord=""
+    }else{
+      currentWord += ch;
+    }
+  }
+    words.push(currentWord);
+    
+    let result = "";
+    for(let i = words.length -1; i>=0; i--){
+      result+=words[i];
+      if(i !== 0){
+        result+=" "
+      }
+      
+    }
+  
+  return result
+}
+console.log(reverseWordsOrder("hello Juan from Canada"));
 
 /*
-========================================================
-EXERCISE 9
-========================================================
-Reverse a string while PRESERVING casing.
+--------------------------------------------------------
+EXERCISE 8
+--------------------------------------------------------
+Reverse string preserving original letter casing.
 
 Input:
 "AbCd"
@@ -266,29 +302,118 @@ Output:
 "dCbA"
 
 Focus:
-- Separating value logic from formatting
+- Separate value from formatting
+- Case handling
 
 --- CODE BELOW ---
 */
-
-
+function reversePreserveCasing(text8){
+  let letters = text8;
+  let result = "";
+  for(let i = letters.length -1; i>=0; i--){
+    result+=letters[i]
+  }
+  return result;
+}
+console.log(reversePreserveCasing("AbCd"));
 
 /*
-========================================================
+--------------------------------------------------------
+EXERCISE 9
+--------------------------------------------------------
+Reverse string ignoring non-alphabetic characters.
+
+Input:
+"a1!b@c"
+
+Output:
+"c1!b@a"
+
+Focus:
+- Generalizing previous logic
+- Cleaner conditions
+
+--- CODE BELOW ---
+*/
+function reverseIgnoreNonAlphabetic(text9) {
+  let letter = "";
+  
+  for(let i = 0; i<text9.length; i++){
+    let ch = text9[i];
+    if(
+      (ch>="a" && ch<="z")||
+      (ch>="A" && ch<="Z")
+      ){
+        letter+=ch;
+      }
+  }
+  let index = letter.length -1;
+  let result = "";
+  for(let i = 0; i<text9.length; i++){
+    let ch = text9[i]
+    let isLetter =
+      (ch>="a" && ch<="z")||
+      (ch>="A" && ch<="Z")
+      
+    if(isLetter){
+      result+=letter[index];
+      index--;
+    }else{
+      result+=ch;
+    }
+    
+  }
+  return result;
+}
+console.log(reverseIgnoreNonAlphabetic("a1!b@c"));
+
+/*
+--------------------------------------------------------
 EXERCISE 10
-========================================================
+--------------------------------------------------------
 Interview-level solution.
 
 Requirements:
 - Clean
 - Optimized
-- Handles edge cases
-- Explainable on a whiteboard
+- Covers all edge cases
+- Easy to explain on a whiteboard
 
 Focus:
 - Confidence
-- Clarity
+- Readability
 - Interview readiness
 
 --- CODE BELOW ---
 */
+function reverseInterviewReady(text10) {
+  let letters = "";
+  
+  for(let i = 0; i<text10.length; i++){
+    let ch = text10[i];
+    let isLetters =
+      (ch>="a" && ch<="z")||
+      (ch>="A" && ch<="Z")
+    if(isLetters){
+      letters+=ch;
+    }
+  }
+  
+  let index = letters.length -1;
+  let result = "";
+  for(let i = 0; i<text10.length; i++){
+    let ch = text10[i]
+    let isLetters =
+      (ch>="a" && ch<="z")||
+      (ch>="A" && ch<="Z")
+    if(isLetters){
+      result+=letters[index];
+      index--;
+    }else{
+      result+=ch
+    }
+  }
+  return result;
+}
+
+console.log(reverseInterviewReady("a1!b@c"));
