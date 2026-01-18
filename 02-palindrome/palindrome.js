@@ -144,21 +144,21 @@ Focus:
 --- CODE BELOW ---
 */
 function isPalindromeIgnoreSpaces(text4) {
-  let noSpacesText = "";
-  if(text4 === "") return true;
-  if(text4.length <= 1) return true;
-  
-  for(let i = 0; i<text4.length; i++){
-    if(text4[i] !== " "){
-      noSpacesText+=text4[i]
+    let noSpacesText = "";
+    if (text4 === "") return true;
+    if (text4.length <= 1) return true;
+
+    for (let i = 0; i < text4.length; i++) {
+        if (text4[i] !== " ") {
+            noSpacesText += text4[i]
+        }
     }
-  }
-  for(let i = 0; i<noSpacesText.length; i++){
-    if(noSpacesText[i].toLowerCase() !== noSpacesText[noSpacesText.length - 1- i].toLowerCase()){
-      return false
+    for (let i = 0; i < noSpacesText.length; i++) {
+        if (noSpacesText[i].toLowerCase() !== noSpacesText[noSpacesText.length - 1 - i].toLowerCase()) {
+            return false
+        }
     }
-  }
-  return true;
+    return true;
 }
 
 console.log(isPalindromeIgnoreSpaces("n u r s e s r u n"));
@@ -182,27 +182,27 @@ Focus:
 --- CODE BELOW ---
 */
 function isPalindromeIgnorePunctuation(text5) {
-  let newString = "";
-  
-  if(text5 === "") return true;
-  if(text5.length <= 1) return true;
-  
-  for(let i = 0; i<text5.length; i++){
-    let ch = text5[i]
-    if(
-      (ch >= "a" && ch<= "z")||
-      (ch >= "A" && ch<= "Z")
-      ){
-      newString+=ch
+    let newString = "";
+
+    if (text5 === "") return true;
+    if (text5.length <= 1) return true;
+
+    for (let i = 0; i < text5.length; i++) {
+        let ch = text5[i]
+        if (
+            (ch >= "a" && ch <= "z") ||
+            (ch >= "A" && ch <= "Z")
+        ) {
+            newString += ch
+        }
     }
-  }
-  
-  for(let i = 0; i<newString.length; i++){
-    if(newString[i].toLowerCase() !== newString[newString.length -1 -i].toLowerCase()){
-      return false
+
+    for (let i = 0; i < newString.length; i++) {
+        if (newString[i].toLowerCase() !== newString[newString.length - 1 - i].toLowerCase()) {
+            return false
+        }
     }
-  }
-  return true
+    return true
 }
 
 console.log(isPalindromeIgnorePunctuation("a,b,a"));
@@ -215,19 +215,57 @@ console.log(isPalindromeIgnorePunctuation("ab,c"));
 --------------------------------------------------------
 EXERCISE 6
 --------------------------------------------------------
-Palindrome ignoring non-alphabetic characters.
+Palindrome ignoring non-relevant characters (LETTERS + NUMBERS ONLY)
 
-Input:
-"A man, a plan, a canal: Panama" → true
+Description:
+Determine if a string is a palindrome considering
+ONLY alphabetic characters (A–Z, a–z) and numeric
+characters (0–9).
 
+All other characters must be ignored:
+- spaces
+- punctuation
+- symbols
+
+Comparison must be CASE-INSENSITIVE.
 Focus:
-- Generalizing ignore logic
-- Clean conditions
+- Generalize previous palindrome logic
+- Clearly define which characters are valid
+- Reuse the same pattern:
+  1) Clean the string (letters + numbers only)
+  2) Compare mirrored characters
+- Avoid rewriting logic unnecessarily
 
 --- CODE BELOW ---
 */
+function isPalindromeIgnoreNonAlphabetic(text5) {
+    let newString = "";
 
+    if (text5 === "") return true;
+    if (text5.length <= 1) return true;
 
+    for (let i = 0; i < text5.length; i++) {
+        let ch = text5[i]
+        if (
+            (ch >= "a" && ch <= "z") ||
+            (ch >= "A" && ch <= "Z") ||
+            (ch >= "0" && ch <= "9")
+        ) {
+            newString += ch
+        }
+    }
+
+    for (let i = 0; i < newString.length; i++) {
+        if (newString[i].toLowerCase() !== newString[newString.length - 1 - i].toLowerCase()) {
+            return false
+        }
+    }
+    return true
+}
+
+console.log(isPalindromeIgnoreNonAlphabetic("a1!b@1a")); // true
+console.log(isPalindromeIgnoreNonAlphabetic("ab12 ba")); // true
+console.log(isPalindromeIgnoreNonAlphabetic("a1b2c"));   // false
 /*
 --------------------------------------------------------
 EXERCISE 7
@@ -244,6 +282,21 @@ Focus:
 
 --- CODE BELOW ---
 */
+function isNumericPalindrome(text7) {
+    if (text7 === "") return true;
+    if (text7.length <= 1) return true;
+
+    for (let i = 0; i < text7.length; i++) {
+        if (text7[i] !== text7[text7.length - 1 - i]) {
+            return false
+        }
+    }
+    return true;
+}
+
+console.log(isNumericPalindrome("12321"));
+console.log(isNumericPalindrome("1001"));
+console.log(isNumericPalindrome("12345"));
 
 
 /*
@@ -261,23 +314,70 @@ Focus:
 
 --- CODE BELOW ---
 */
+function isPalindromeTwoPointers(text8) {
+    for (let left = 0, right = text8.length - 1; left < right;) {
+        let leftChar = text8[left];
+        let rightChar = text8[right]
 
+        if (
+            !(
+                (leftChar >= "a" && leftChar <= "z") ||
+                (leftChar >= "A" && leftChar <= "Z")
+            )
+        ) {
+            left++;
+            continue;
+        }
+
+        if (
+            !(
+                (rightChar >= "a" && rightChar <= "z") ||
+                (rightChar >= "A" && rightChar <= "Z")
+            )
+        ) {
+            right--;
+            continue;
+        }
+        if (leftChar.toLowerCase() !== rightChar.toLowerCase()) {
+            return false;
+        }
+        left++;
+        right--;
+    }
+    return true
+}
+console.log(isPalindromeTwoPointers("A man, a plan, a canal: Panama")); // true
+console.log(isPalindromeTwoPointers("race a car"));                     // false
+console.log(isPalindromeTwoPointers("abba"));                           // true
 
 /*
---------------------------------------------------------
-EXERCISE 9
---------------------------------------------------------
-Longest palindrome check (simple validation).
-
-Input:
-"abbae" → true (contains "abba")
-
-Focus:
-- Nested loops
-- Substring comparison logic
-
---- CODE BELOW ---
+////////////////////////////////////////////////////////
+// EXERCISE 9.1
+// Palindrome substring (length 2)
+////////////////////////////////////////////////////////
 */
+function hasPalindromeLen2(text9) {
+  for (let i = 0; i < text9.length - 1; i++) {
+    if (text9[i] === text9[i + 1]) {
+      return true;
+    }
+  }
+  return false;
+}
+
+////////////////////////////////////////////////////////
+// EXERCISE 9.2
+// Palindrome substring (length 3)
+////////////////////////////////////////////////////////
+
+function hasPalindromeLen3(text9) {
+  for (let i = 1; i < text9.length - 1; i++) {
+    if (text9[i - 1] === text9[i + 1]) {
+      return true;
+    }
+  }
+  return false;
+}
 
 
 /*
@@ -300,3 +400,43 @@ Focus:
 
 --- CODE BELOW ---
 */
+function isPalindromeInterviewReady(text10) {
+  for(let left = 0, right = text10.length -1; left<right;){
+    let leftChar = text10[left];
+    let rightChar = text10[right]
+    
+    let leftIsValid = 
+      (leftChar >= "a" && leftChar <="z")||
+      (leftChar >= "A" && leftChar <="Z")||
+      (leftChar >= "0" && leftChar <="9")
+    
+    let rightIsValid = 
+      (rightChar >= "a" && rightChar <= "z") ||
+      (rightChar >= "A" && rightChar <= "Z") ||
+      (rightChar >= "0" && rightChar <= "9");
+      
+      if(!leftIsValid){
+        left++;
+        continue;
+      }
+      if(!rightIsValid){
+        right--;
+        continue;
+      }
+      if(leftChar.toLowerCase() !== rightChar.toLowerCase()){
+        return false;
+      }
+      left++;
+      right--;
+  }
+  return true
+}
+
+// Tests
+console.log(isPalindromeInterviewReady("A man, a plan, a canal: Panama")); // true
+console.log(isPalindromeInterviewReady("a1!b@1a"));                        // true
+console.log(isPalindromeInterviewReady("race a car"));                     // false
+console.log(isPalindromeInterviewReady("0P"));                             // false
+console.log(isPalindromeInterviewReady(""));                               // true
+console.log(isPalindromeInterviewReady("a"));                              // true
+
